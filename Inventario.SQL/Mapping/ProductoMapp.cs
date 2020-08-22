@@ -22,7 +22,6 @@ namespace Inventario.SQL.Mapping
             //foreign key
             builder.HasOne(x => x.Marca).WithMany().HasForeignKey(x => x.IdMarca);
             builder.HasOne(x => x.Categoria).WithMany().HasForeignKey(x => x.IdCategoria);
-            builder.HasOne(x => x.TipoProducto).WithMany().HasForeignKey(x => x.IdTipoProducto);
         }
     }
 }

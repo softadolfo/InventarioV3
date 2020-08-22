@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\Categoria\Filtro\" />
-    <Folder Include="Service\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>
