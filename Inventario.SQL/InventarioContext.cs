@@ -20,7 +20,6 @@ namespace Inventario.SQL
         public DbSet<Producto> Producto { get; set; }
         public DbSet<RegistroVenta> RegistroVenta { get; set; }
         public DbSet<RegistroEntradaProducto> RegistroEntradaProducto { get; set; }
-        public DbSet<TipoProducto> TipoProducto { get; set; }
         public DbSet<TipoUsuario> TipoUsuario { get; set; }
         public DbSet<UserRol> UserRol { get; set; }
         public DbSet<VentaProducto> VentaProducto { get; set; }
@@ -33,7 +32,6 @@ namespace Inventario.SQL
             modelBuilder.ApplyConfiguration(new ProductoMapp());
             modelBuilder.ApplyConfiguration(new RegistroVentaMapp());
             modelBuilder.ApplyConfiguration(new RegistroEntradaMapp());
-            modelBuilder.ApplyConfiguration(new TipoProductoMapp());
             modelBuilder.ApplyConfiguration(new TipoUsuarioMapp());
             modelBuilder.ApplyConfiguration(new UserRolMapp());
             modelBuilder.ApplyConfiguration(new VentaProductoMapp());
