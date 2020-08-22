@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Inventario.SQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,10 +24,6 @@ namespace Inventario.WEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-             string connection = Configuration["ConnectionStrings:DefaultConnection"];
-            services.AddScoped<DbContext, InventarioContext>();
-            services.AddDbContext<InventarioContext>(options => options.UseSqlServer(connection));
-            services.AddScoped<DbContext, InventarioContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

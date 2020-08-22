@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventario.Core", "Inventar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventario.SQL", "Inventario.SQL\Inventario.SQL.csproj", "{241CCF96-D97B-4B7C-AC20-E88A10DD22C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventario.WEB", "Inventario.WEB\Inventario.WEB.csproj", "{B5F8AE11-AFB6-4934-9ED2-ACA0F610DFB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventario.WEB", "Inventario.WEB\Inventario.WEB.csproj", "{884511F3-8D4C-4547-82E9-0AF3B4EC3FDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{241CCF96-D97B-4B7C-AC20-E88A10DD22C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{241CCF96-D97B-4B7C-AC20-E88A10DD22C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{241CCF96-D97B-4B7C-AC20-E88A10DD22C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5F8AE11-AFB6-4934-9ED2-ACA0F610DFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5F8AE11-AFB6-4934-9ED2-ACA0F610DFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5F8AE11-AFB6-4934-9ED2-ACA0F610DFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5F8AE11-AFB6-4934-9ED2-ACA0F610DFB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{884511F3-8D4C-4547-82E9-0AF3B4EC3FDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{884511F3-8D4C-4547-82E9-0AF3B4EC3FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{884511F3-8D4C-4547-82E9-0AF3B4EC3FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{884511F3-8D4C-4547-82E9-0AF3B4EC3FDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
