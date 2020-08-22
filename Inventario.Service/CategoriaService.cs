@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Inventario.Core.Service;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Inventario.Service
 {
-    public class CategoriaService
+    public class CategoriaService : ICategoriaService
     {
     }
 }
