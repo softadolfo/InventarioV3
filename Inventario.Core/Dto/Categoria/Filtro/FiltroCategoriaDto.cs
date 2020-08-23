@@ -6,6 +6,9 @@ namespace Inventario.Core.Dto.Categoria.Filtro
 {
     public class FiltroCategoriaDto
     {
+        public FiltroCategoriaDto() { }
 
+        //nombre de la categoria a filtrar
+        public string Nombre { get; set; }
     }
 }
