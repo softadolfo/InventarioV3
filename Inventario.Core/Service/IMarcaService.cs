@@ -15,13 +15,13 @@ namespace Inventario.Core.Service
         /// Guarda o edita las categorias insertadas
         /// </summary>
         /// <param name="categoria"
-        Task AgregarEditarMarcaAsync(MarcaInput categoria);
+        Task AgregarEditarMarcaAsync(MarcaInput marca);
         /// <summary>
         /// Regresa una lista de categorias paginada
         /// </summary>
         /// <param name="itemperpage"></param>
         /// <param name="page"></param>
-        /// <param name="where"></param>
+        /// <param name="where"></param7
         Task<DataEntityPager<MarcaOutput>> GetMarcasAsync(FiltroMarcaDto filtro, int itemperpage, int page);
         /// <summary>
         /// Elimina las categorias
