@@ -3,7 +3,6 @@ using Inventario.Core.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -38,10 +37,12 @@ namespace Inventario.SQL.Repository
 
         public async Task<List<Marca>> GetMarcaAsync(Expression<Func<Marca, bool>> where, int itemperpage, int page)
         {
-            List<Marca> marcas = await _db.Marca.Where(where)
-                                                           .Skip((page - 1) * itemperpage)
-                                                           .Take(itemperpage)
-                                                           .ToListAsync();
+            IQueryable<Marca> query;
+            query = _db.Marca.Where(where)
+                             .OrderBy(x => x.NombreMarca)
+                             .Skip((page - 1) * itemperpage)
+                             .Take(itemperpage);
+            List<Marca> marcas = await query.ToListAsync().ConfigureAwait(false);
             return marcas;
         }
 
@@ -58,7 +59,7 @@ namespace Inventario.SQL.Repository
             else
             {
                 _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-                marca = await _db.Marca.FirstOrDefaultAsync(where);
+                marca = await _db.Marca.FirstOrDefaultAsync(where).ConfigureAwait(false);
             }
 
             return marca;
@@ -66,7 +67,7 @@ namespace Inventario.SQL.Repository
 
         public async Task SaveChangesAsync()
         {
-            _db.SaveChangesAsync();
+           await _db.SaveChangesAsync();
         }
     }
 }

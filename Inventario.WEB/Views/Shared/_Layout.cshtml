@@ -1,184 +1,168 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario Web Admin - @ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
 
-    <title>InventarioV3 @ViewBag.Title</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <!-- Custom styles for this template-->
-    <link href="~/Content/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="~/css/plugins/slick/slick.css" />
+    <link rel="stylesheet" href="~/css/plugins/slick/slick-theme.css" />
+    <link rel="stylesheet" href="~/css/plugins/chosen/chosen.min.css" />
+    <link rel="stylesheet" href="~/css/plugins/fancybox/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="~/css/icons/styles.css" />
+    @*<link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert.css" />*@
+    <link rel="stylesheet" href="~/css/plugins/sweetalert/sweetalert2.css" />
+    <link rel="stylesheet" href="~/css/plugins/datapicker/datepicker.css" />
+    <link rel="stylesheet" href="~/css/plugins/nestable/nestable.css" />
+    @*<link rel="stylesheet" href="~/css/plugins/nestable/nestable-cust.css" />*@
+    <link rel="stylesheet" href="~/css/toastr/toastr.min.css" />
+    <link href="~/css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <link href="~/css/plugins/select2/select2.min.css" rel="stylesheet" />
+    <link href="~/css/plugins/jsonViewer/jjsonviewer.css" rel="stylesheet" />
+    <link href="~/js/plugins/summernote/summernote.css" rel="stylesheet" />
+    <link href="~/js/plugins/summernote/summernote-lite.css" rel="stylesheet" />
 </head>
-
-<body id="page-top">
-
-    <!-- Page Wrapper -->
+<body>
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #000000">
+        <!-- Contenedor Principal Izquierdo -->
+        <nav class="navbar-default navbar-static-side">
+            <div class="sidebar-collapse">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-                <div class="sidebar-brand-icon rotate-n-15">
-                </div>
-                <div class="sidebar-brand-text mx-3">Inventario <sup></sup></div>
-            </a>
+                <ul class="nav metismenu" id="side-menu">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-dark bg-white topbar mb-4 static-top shadow" style="background: #000000;">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                    <!-- Logo + Titulo del Sistema -->
+                    <li class="nav-header">
+                        <div class="profile-element">
+                            <!-- Logo cuando el panel esta completo -->
+                            <div class="logo">
+                                
                             </div>
-                        </li>
+                        </div>
 
+                        <!-- Logo cuando el panel esta minimizado -->
+                        <div class="logo-element">
+                            
+                        </div>
+                    </li>
+
+                    <li class=""><a asp-controller="Home" asp-action="Index"><i class="fa fa-copyright"></i> <span class="nav-label">Home</span></a></li>
+                    <li class=""><a asp-controller="Marca" asp-action="Index"><i class="fa fa-dashboard"></i> <span class="nav-label">Marca</span></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Contenedor Principal - Navegacion superior, Header titulos, Contenido, Footer -->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!-- Navegación superior -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+                    <!-- Botón para minimizar panel izquierdo + Barra de búsqueda -->
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <!-- -->
+                    <!-- Lista de items -->
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">
+                                @*@User.Identity.Name*@
+                            </span>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#"> <i class="fa fa-bars"></i>  </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="@Url.Action("CambiarContrasena", "Cuenta")">Cambiar Contraseña</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Logout", "Cuenta")">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
                     </ul>
+                    <!-- -->
 
                 </nav>
-                <!-- End of Topbar -->
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    @RenderBody()
-
-                </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
+            <!-- -->
+            <!-- Contenido de la views-->
+            @RenderBody()
+            <!-- -->
+            <!-- Modal Forms -->
+            <div class="modal inmodal fade" id="modal-forms" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-md" id="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="modal-title"></h4>
+                        </div>
+                        <div id="modal-content">
+                        </div>
                     </div>
                 </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+            </div>
+            <!-- -->
+            <!-- Footer -->
+            <div class="footer">
+                <div class="pull-right">
+                     Web Admin &copy; 2020
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                <div>
+                    <strong> Web Admin</strong>
                 </div>
             </div>
+            <!-- -->
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
+    <input type="hidden" id="txtMensajeError" value="@ViewBag.MensajeError" />
+    <input type="hidden" id="txtMensajeExito" value="@ViewBag.MensajeExito" />
+    <input type="hidden" id="txtWarningMessage" value="@ViewBag.Warning" />
 
-    <!-- Custom scripts for all pages-->
-    <script src="~/Content/js/sb-admin-2.min.js"></script>
+    <script src="~/js/jquery-2.1.4.min.js"></script>
+    <script src="~/js/jquery.validate.js"></script>
+    <script src="~/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/inspinia.js"></script>
 
-    <!-- Page level plugins -->
+    <script src="~/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="~/js/plugins/slick/slick.min.js"></script>
+    <script src="~/js/plugins/chosen/chosen.jquery.min.js"></script>
+    <script src="~/js/plugins/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    @*<script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+
+    <script src="~/js/plugins/sweetalert/sweetalert2.js"></script>
+    <script src="~/js/plugins/nestable/jquery.nestable.js"></script>
+
+    <script src="~/js/main.js"></script>
+    <script src="~/js/CustomLibrerias/jquery.history.js"></script>
+    <script src="~/js/CustomLibrerias/utilidadesBitworks.js"></script>
+    <script src="~/js/CustomLibrerias/BitworksAjaxNavigation.js"></script>
+    <script src="~/js/ventanas/ventanas.js"></script>
+    <script src="~/js/CustomLibrerias/customBitworks.js"></script>
+    <script src="~/js/toastr/toastr.min.js"></script>
+    <script src="~/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="~/js/plugins/nestable/jquery.nestable.js"></script>
+    <script src="~/js/plugins/select2/select2.full.min.js"></script>
+    <script src="~/js/plugins/jsonViewer/jjsonviewer.js"></script>
+    <script src="~/js/plugins/summernote/summernote.js"></script>
+    <script src="~/js/plugins/summernote/lang/summernote-es-ES.js"></script>
+    <script src="~/js/plugins/summernote/summernote-lite.js"></script>
+    <!--JS de los catalogos-->
+    @RenderSection("scripts", required: false)
 
 </body>
-
 </html>

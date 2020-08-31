@@ -2,7 +2,6 @@
 using Inventario.Core.Repository;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Text;
 using System.Linq;
@@ -66,7 +65,7 @@ namespace Inventario.SQL.Repository
 
         public async Task SaveChangesAsync()
         {
-          _db.SaveChangesAsync();
+          await _db.SaveChangesAsync();
         }
     }
 }

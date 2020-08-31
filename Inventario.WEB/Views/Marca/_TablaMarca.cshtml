@@ -1,0 +1,35 @@
+﻿@model Inventario.WEB.Models.Marca.ListaMarcaVm
+@{
+    Layout = null;
+    Func<int, string> urlPaginacion = pag => Url.Action("Index", "Marca", new { Page = pag });
+}
+<table class="footable table table-stripped">
+    <thead>
+        <tr>
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var marca in Model.Marcas)
+        {
+        <tr>
+            <td>@marca.Codigo</td>
+            <td>@marca.NombreMarca</td>
+            <td>
+                <input type="checkbox" checked="@marca.Activo" data-codigo="@marca.Codigo" class="desactivar_Seccion" />
+            </td>
+            <td><a class="btn btn-success btn-bitbucket detalleSeccion" data-codigo="@marca.Codigo"><i class="fa fa-pencil"></i> Editar</a></td>
+            <td><a class="btn btn-danger btn-bitbucket eliminarSeccion" data-codigo="@marca.Codigo"><i class="fa fa-trash"></i> Eliminar</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mb-md-4 py-5" style="text-align:center;">
+    @await Component.InvokeAsync("Paginacion", new { pagingInfo = Model.PagingInfo, pageUrl = urlPaginacion })
+</div>

@@ -1,0 +1,53 @@
+﻿@model Inventario.WEB.Models.Marca.ListaMarcaVm
+@{
+    ViewData["Title"] = "Marca";
+}
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Marcas</h2>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Búsqueda </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <form asp-controller="Marca" asp-action="Index" method="get">
+                                <div asp-validation-summary="All" class="text-danger validation"></div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="Nombre" class="control-label block">Nombre:</label>
+                                    <input asp-for="Nombre" class="form-control" placeholder="Nombre de la marca" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label asp-for="Estado" class="control-label block">Estado:</label>
+                                    <select asp-for="Estado" asp-items="Html.GetEnumSelectList<Inventario.Core.Enums.Estado>()" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label><br /></label>
+                                    <div class="input-group ">
+                                        <button type="submit" class="btn btn-primary">Buscar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ibox">
+            <div class="ibox-content">
+                <a class="btn btn-primary btn-bitbucket detalleSeccion" data-codigo="0"><i class="icon-plus"></i> Nuevo</a>
+                <div id="tableSeccion">
+                    @await Html.PartialAsync("~/Views/Marca/_TablaMarca.cshtml", Model)
+                </div>
+            </div>
+        </div>
+    </div>

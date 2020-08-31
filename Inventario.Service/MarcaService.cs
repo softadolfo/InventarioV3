@@ -57,7 +57,9 @@ namespace Inventario.Service
         {
             //verificamos los parametros del filtro para poder verificar si vienen vacios
             bool isNullNombre = string.IsNullOrEmpty(filtro.Nombre);
-            Expression<Func<Marca, bool>> where = x => ((isNullNombre) || (x.NombreMarca.Contains(filtro.Nombre)));
+            Expression<Func<Marca, bool>> where = x => ((isNullNombre) || (x.NombreMarca.Contains(filtro.Nombre)))
+            && ((filtro.Estado == Core.Enums.Estado.Activo && x.Activo == true)
+            || (filtro.Estado == Core.Enums.Estado.Inactivo && x.Activo == false) || (filtro.Estado == Core.Enums.Estado.Todos));
 
             List<Marca> marcas = await _marcaRepository.GetMarcaAsync(where, itemperpage, page);
             List<MarcaOutput> result = _mapper.Map<List<MarcaOutput>>(marcas);

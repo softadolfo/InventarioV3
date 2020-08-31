@@ -10,6 +10,5 @@ namespace Inventario.Core.Model
         public DateTimeOffset? FechaVenta { get; set; }
         public decimal TotalVenta { get; set; }
         public int IdUsuario { get; set; }
-        public Usuario Usuario { get; set; }
     }
 }
