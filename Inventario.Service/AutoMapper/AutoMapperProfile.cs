@@ -3,6 +3,8 @@ using Inventario.Core.Dto.Categoria.Input;
 using Inventario.Core.Dto.Categoria.Output;
 using Inventario.Core.Dto.Marca.Input;
 using Inventario.Core.Dto.Marca.Output;
+using Inventario.Core.Dto.Producto.Input;
+using Inventario.Core.Dto.Producto.Output;
 using Inventario.Core.Dto.Rol.Input;
 using Inventario.Core.Dto.Rol.Output;
 using Inventario.Core.Model;
@@ -27,6 +29,10 @@ namespace Inventario.Service.AutoMapper
             //Rol
             CreateMap<RolInput, Rol>().ReverseMap();
             CreateMap<RolOutput, Rol>().ReverseMap();
+
+            //producto 
+            CreateMap<ProductoOutput, Producto>().ReverseMap();
+            CreateMap<ProductoInput, Producto>().ReverseMap();
         }
     }
 }

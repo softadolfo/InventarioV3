@@ -40,6 +40,13 @@ namespace Inventario.Service
             await _marcaRepository.SaveChangesAsync();
         }
 
+        public async Task DesactivarActivarMarcaAsync(int codigo, bool activar)
+        {
+            Marca marca = await _marcaRepository.GetMarcaById(codigo, trackear: true);
+            marca.Activo = activar;
+            await _marcaRepository.SaveChangesAsync();
+        }
+
         public async Task EliminarMarcaAsync(int idMarca)
         {
             await _marcaRepository.EliminarMarcaAsync(idMarca);

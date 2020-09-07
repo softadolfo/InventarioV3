@@ -1,0 +1,26 @@
+﻿
+@model Inventario.WEB.Models.Marca.MarcaVm
+@{
+    Layout = null;
+}
+
+<form id="formDetalle" asp-controller="Marca" asp-action="AgregarModificarMarca" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="modal-body">
+        <div class="form-group">
+            @if (Model.Codigo != null && Model.Codigo > 0)
+            {
+                <label>Codigo</label>
+                <input type="number" asp-for="Codigo" class="form-control" readonly="readonly">
+            }
+        </div>
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" asp-for="NombreMarca" class="form-control">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="cancelar" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+        <input type="submit" class="btn btn-primary" value="Guardar Cambios" />
+    </div>
+</form>

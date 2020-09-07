@@ -42,11 +42,12 @@ namespace Inventario.WEB
 
             //repositorio
             services.AddScoped<IMarcaRepository, MarcaRepository>();
-
+            services.AddScoped<IProductoRepository, ProductoRepository>();
             //provider
             services.AddAutoMapper(typeof(MapperProfile), typeof(AutoMapperProfile));
             //service
             services.AddScoped<IMarcaService, MarcaService>();
+            services.AddScoped<IProductoService, ProductoService>();
 
             services.ConfigureApplicationCookie(options =>
             {

@@ -2,52 +2,206 @@
 @{
     ViewData["Title"] = "Marca";
 }
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
-            <h2>Marcas</h2>
-        </div>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Marcas</h2>
     </div>
+</div>
 
-    <div class="wrapper wrapper-content">
+<div class="wrapper wrapper-content">
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>Búsqueda </h5>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <form asp-controller="Marca" asp-action="Index" method="get">
-                                <div asp-validation-summary="All" class="text-danger validation"></div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="Nombre" class="control-label block">Nombre:</label>
-                                    <input asp-for="Nombre" class="form-control" placeholder="Nombre de la marca" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Búsqueda </h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <form asp-controller="Marca" asp-action="Index" method="get">
+                            <div asp-validation-summary="All" class="text-danger validation"></div>
+                            <div class="form-group col-md-2">
+                                <label asp-for="Nombre" class="control-label block">Nombre:</label>
+                                <input asp-for="Nombre" class="form-control" placeholder="Nombre de la marca" />
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label asp-for="Estado" class="control-label block">Estado:</label>
+                                <select asp-for="Estado" asp-items="Html.GetEnumSelectList<Inventario.Core.Enums.Estado>()" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label><br /></label>
+                                <div class="input-group ">
+                                    <button type="submit" class="btn btn-primary">Buscar</button>
                                 </div>
-                                <div class="form-group col-md-2">
-                                    <label asp-for="Estado" class="control-label block">Estado:</label>
-                                    <select asp-for="Estado" asp-items="Html.GetEnumSelectList<Inventario.Core.Enums.Estado>()" class="form-control">
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label><br /></label>
-                                    <div class="input-group ">
-                                        <button type="submit" class="btn btn-primary">Buscar</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="ibox">
-            <div class="ibox-content">
-                <a class="btn btn-primary btn-bitbucket detalleSeccion" data-codigo="0"><i class="icon-plus"></i> Nuevo</a>
-                <div id="tableSeccion">
-                    @await Html.PartialAsync("~/Views/Marca/_TablaMarca.cshtml", Model)
-                </div>
+    <div class="ibox">
+        <div class="ibox-content">
+            <a class="btn btn-primary btn-bitbucket detalleMarca" data-codigo="0"><i class="icon-plus"></i> Nuevo</a>
+            <div id="tableMarca">
+                @await Html.PartialAsync("~/Views/Marca/_TablaMarca.cshtml", Model)
             </div>
         </div>
     </div>
+</div>
+
+<input type="hidden" id="urlDetalleMarca" value="@Url.Action("DetalleMarca","Marca")" />
+<input type="hidden" id="urlAgregraModificarMarca" value="@Url.Action("AgregarEditarMarca","Marca")" />
+<input type="hidden" id="urlEliminaMarca" value="@Url.Action("EliminarMarca","Marca")" />
+<input type="hidden" id="urlDesactivarMarca"  value="@Url.Action("DesactivarMarca","Marca")"/>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            //valores derminados para poder hacer la carga y mostrar los modales y la tabla para mostrar los datos actualizados
+            var modal = document.getElementById("modal-forms");
+            var modalContent = document.getElementById("modal-content");
+            var modalTitulo = document.getElementById("modal-title");
+            var tableContent = document.getElementById("tableMarca");
+
+            $(document).on("click", ".detalleMarca", function (event) {
+                event.preventDefault();
+                Bitworks.Ventanas.mostrarLoading();
+                var url = $('#urlDetalleMarca').val();
+                var codigo = $(this).data("codigo");
+                codigo = (codigo === undefined || codigo == null) ? 0 : codigo;
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: { codigo: codigo },
+                    success: function (resp) {
+                        $(modalTitulo).html(resp.titulo)
+                        $(modalContent).html(resp.htmlViewParial);
+                        $(modal).modal({
+                            backdrop: true,
+                            keyboard: false
+                        });
+                        utilidadesBitworks.attachForm("formDetalle");
+                        inicializarEventFunction();
+                        Bitworks.Ventanas.ocultarLoading();
+                    },
+                    error: function (error) {
+                        Swal.fire('error', error.statusText, "error");
+                    }
+                });
+            });
+            //metodo ajax para eliminar la Marca
+            $(document).on("click", ".eliminarMarca", function (e) {
+                e.preventDefault();
+                var codigo = $(this).data("codigo");
+                var url = $('#urlEliminaMarca').val();
+
+                Swal.fire({
+                    title: "¿Estas seguro de eliminar el registro?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Si, Eliminar!',
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            method: "POST",
+                            url: url,
+                            data: { codigo: codigo },
+                            success: function (resp) {
+                                if (resp.success == true) {
+                                    $(tableContent).html(resp.viewParcial);
+                                    swal("Exito", resp.mensaje, "success");
+                                }
+                                else {
+                                    swal("Error", resp.mensaje, "error");
+                                }
+                            }
+                        });
+                    }
+                })
+            });
+            function inicializarEventFunction() {
+                $(document).on("submit", "#formDetalle", function (e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    Bitworks.Ventanas.mostrarLoading();
+                    var datos = new FormData($("#formDetalle")[0]);
+                    var url = $('#urlAgregraModificarMarca').val();
+                    $.ajax({
+                        method: "POST",
+                        url: url,
+                        data: datos,
+                        contentType: false,
+                        processData: false,
+                        success: function (resp) {
+                            if (resp.success == true) {
+                                swal("Exito", resp.mensaje, "success");
+                                $(tableContent).html(resp.viewPartial);
+                                $(modalTitulo).html()
+                                $(modalContent).html();
+                                $(modal).modal("hide");
+                            }
+                            else {
+                                var errors = [];
+                                $.each(resp.validationErrors, function (i, error) {
+                                    errors.push(error);
+                                });
+                                showErrorListFromArray(errors);
+                            }
+                        }
+                    })
+                });
+                function showErrorListFromArray(errors) {
+
+                    var errorHtml = "<ul>";
+                    for (var i = 0, len = errors.length; i < len; i++) {
+                        var error = "<li>" + errors[i] + "</li>";
+                        errorHtml = errorHtml + error;
+                    }
+                    errorHtml = errorHtml + "</ul>";
+
+                    swal({
+                        title: "<h3>Revise la siguiente información</h3>",
+                        html: errorHtml
+                    });
+                }
+            };
+            //metodo para desactivar o activar la marca
+            $(document).on("click", ".desactivar_Marca", function (e) {
+                e.preventDefault();
+                var codigo = $(this).data("codigo");
+                var url = $('#urlDesactivarMarca').val();
+                var activo = $(this).is(':checked');
+                var butonConfirm = "Desactivar!";
+                if (activo == true) {
+                    butonConfirm = "Activar!";
+                }
+                Swal.fire({
+                    title: "¿Estas seguro de desactivar la marca?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '¡Si,' + butonConfirm,
+                    cancelButtonText: 'Cancelar',
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            method: "POST",
+                            url: url,
+                            data: { codigo: codigo, activo: activo },
+                            success: function (resp) {
+                                $(tableContent).html(resp.viewParcial);
+                                swal("Exito", resp.mensaje, "success");
+                            }
+                        });
+                    }
+                })
+            });
+        });
+    </script>
+}
