@@ -37,10 +37,12 @@ namespace Inventario.SQL.Repository
 
         public async Task<List<Rol>> GetRolAsync(Expression<Func<Rol, bool>> where, int itemperpage, int page)
         {
-            List<Rol> rols = await _db.Rol.Where(where)
-                                            .Skip((page - 1) * itemperpage)
-                                            .Take(itemperpage)
-                                            .ToListAsync();
+            IQueryable<Rol> query;
+            query = _db.Rol.Where(where)
+                             .OrderBy(x => x.TipoAcceso)
+                             .Skip((page - 1) * itemperpage)
+                             .Take(itemperpage);
+            List<Rol> rols = await query.ToListAsync().ConfigureAwait(false);
             return rols;
         }
 

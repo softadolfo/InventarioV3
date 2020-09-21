@@ -56,10 +56,12 @@ namespace Inventario.SQL.Repository
 
         public async Task<List<Categoria>> GetCategoriasAsync(Expression<Func<Categoria, bool>> where, int itemperpage, int page)
         {
-            List<Categoria> categorias = await _db.Categoria.Where(where)
-                                                            .Skip((page - 1) * itemperpage)
-                                                            .Take(itemperpage)
-                                                            .ToListAsync();
+            IQueryable<Categoria> query;
+            query = _db.Categoria.Where(where)
+                             .OrderBy(x => x.NombreCategoria)
+                             .Skip((page - 1) * itemperpage)
+                             .Take(itemperpage);
+            List<Categoria> categorias = await query.ToListAsync().ConfigureAwait(false);
             return categorias;
         }
 
