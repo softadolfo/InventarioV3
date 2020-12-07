@@ -9,8 +9,9 @@ namespace Inventario.Core.Dto.Producto.Filtro
     {
         public FiltroProductoDto(){ }
         public string Nombre { get; set; }
-        public TipoProducto TipoProducto { get; set; }
+        public TipoProductoFiltro TipoProducto { get; set; }
         public string Marca { get; set; }
         public string Categoria { get; set; }
+        public Estado? Estado { get; set; }
     }
 }

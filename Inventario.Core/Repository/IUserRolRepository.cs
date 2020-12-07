@@ -7,33 +7,33 @@ using System.Threading.Tasks;
 
 namespace Inventario.Core.Repository
 {
-    public interface IRegistroVentaRepository
+    public interface IUserRolRepository
     {
         /// <summary>
-        /// Guarda o edita las RegistroVenta insertadas
+        /// Guarda o edita los UserRol
         /// </summary>
-        /// <param name="categoria"
-        Task AgregarEditarRegistroVentaAsync(RegistroVenta registroVenta);
+        /// <param name="userRol"
+        Task AgregarEditarRolAsync(UserRol userRol);
         /// <summary>
-        /// Regresa una lista de RegistroVenta paginada
+        /// Regresa una lista de UserRol paginada
         /// </summary>
         /// <param name="itemperpage"></param>
         /// <param name="page"></param>
         /// <param name="where"></param>
-        Task<List<RegistroVenta>> GetRegistroVentaAsync(Expression<Func<RegistroVenta, bool>> where, int itemperpage, int page);
+        Task<List<UserRol>> GetRolAsync(Expression<Func<UserRol, bool>> where, int itemperpage, int page);
         /// <summary>
         /// Regresa el total de resultados de la lista a paginar
         /// </summary>
         /// <param name="where"></param>
-        Task<int> CountAsync(Expression<Func<RegistroVenta, bool>> where);
+        Task<int> CountAsync(Expression<Func<UserRol, bool>> where);
         /// <summary>
-        /// Elimina las RegistroVenta
+        /// Elimina las UserRol
         /// </summary>
-        Task EliminarRegistroVentaAsync(int idVenta);
+        Task EliminarRolAsync(int idUserRol);
         /// <summary>
-        /// Extrae una RegistroVenta por id
+        /// Extrae un UserRol por id
         /// </summary>
-        Task<RegistroVenta> GetRegistroVentaById(int idVenta, bool trackear = false);
+        Task<UserRol> GetRolById(int idUserRol, bool trackear = false);
         /// <summary>
         /// Guarda los cambios realizados a la base de datos
         /// </summary>

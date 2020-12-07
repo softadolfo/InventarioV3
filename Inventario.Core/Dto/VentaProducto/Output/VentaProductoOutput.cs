@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Inventario.Core.Dto.VentaProducto.Output
 {
-    public class RegistroVentaOutput
+    public class VentaProductoOutput
     {
         public int Codigo { get; set; }
         public int IdProducto { get; set; }

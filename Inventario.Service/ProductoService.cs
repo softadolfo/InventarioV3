@@ -8,6 +8,7 @@ using Inventario.Core.Repository;
 using Inventario.Core.Service;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,14 +46,34 @@ namespace Inventario.Service
 
         public async Task<ProductoOutput> GetProductoById(int idProducto)
         {
+            
+            
             Producto producto = await _productoRepository.GetProducotById(idProducto);
             ProductoOutput productoResult = _mapper.Map<ProductoOutput>(producto);
             return productoResult;
         }
 
-        public async Task<DataEntityPager<ProductoInput>> GetProductosAsync(FiltroProductoDto filtro, int itemperpage, int page)
+        public async Task<DataEntityPager<ProductoOutput>> GetProductosAsync(FiltroProductoDto filtro, int itemperpage, int page)
         {
-            throw new NotImplementedException();
+            bool isNombreValido = string.IsNullOrEmpty(filtro.Nombre);
+            bool marcaSelected = string.IsNullOrEmpty(filtro.Marca);
+            bool categoriaSelected = string.IsNullOrEmpty(filtro.Categoria);
+            Expression<Func<Producto, bool>> where = x => ((isNombreValido) || (x.NombreProducto.Contains(filtro.Nombre))
+            && ((marcaSelected) || (x.IdMarca == int.Parse(filtro.Marca))) && ((categoriaSelected) || (x.IdCategoria == int.Parse(filtro.Categoria))) 
+            && ((filtro.TipoProducto == Core.Dto.Producto.TipoProductoFiltro.Ropa && x.TipoProducto == Core.Enums.TipoProducto.Ropa) 
+            || (filtro.TipoProducto == Core.Dto.Producto.TipoProductoFiltro.Zapatos && x.TipoProducto == Core.Enums.TipoProducto.Zapatos))
+            || (filtro.TipoProducto == Core.Dto.Producto.TipoProductoFiltro.Todos) && ((filtro.Estado == Core.Enums.Estado.Activo && x.Activo == true)
+            || (filtro.Estado == Core.Enums.Estado.Inactivo && x.Activo == false) || (filtro.Estado == Core.Enums.Estado.Todos)));
+
+            List<Producto> productos = await _productoRepository.GetProductosAsync(where, itemperpage, page);
+            List<ProductoOutput> result = _mapper.Map<List<ProductoOutput>>(productos);
+            int totalItems = await _productoRepository.CountAsync(where);
+            DataEntityPager<ProductoOutput> lista = new DataEntityPager<ProductoOutput>();
+            lista.CantidadPorPagina = itemperpage;
+            lista.CantidadTotal = totalItems;
+            lista.PaginaActual = page;
+            lista.Results = result;
+            return lista;
         }
 
         public async Task<List<ProductoOutput>> GetProductosMarcaAsync(int idProducto)

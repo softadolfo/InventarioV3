@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Inventario.Core.Model
+namespace Inventario.Core.Dto.UserRol.Output
 {
-    public class UserRol
+    public class UserRolOutput
     {
         public int IdRol { get; set; }
         public string IdUsuario { get; set; }
-        public Rol Rol { get; set; }
-        public Usuario Usuario { get; set; }
     }
 }

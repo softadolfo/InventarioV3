@@ -26,10 +26,10 @@ namespace Inventario.Core.Service
         /// <summary>
         /// Elimina las RegistroVentaInput
         /// </summary>
-        Task EliminarMarcaAsync(int idVenta);
+        Task EliminarRegistroVentaAsync(int idVenta);
         /// <summary>
         /// Extrae una RegistroVentaInput por id
         /// </summary>
-        Task<RegistroVentaOutput> GetMarcaById(int idVenta);
+        Task<RegistroVentaOutput> GetRegistroVentaById(int idVenta);
     }
 }

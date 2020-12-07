@@ -31,5 +31,12 @@ namespace Inventario.Core.Service
         /// Extrae una categoria por id
         /// </summary>
         Task<CategoriaOutput> GetCategoriaById(int idCategoria);
+        /// <summary>
+        /// Desactiva o Activa una Seccion.
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <param name="activar"></param>
+        /// <returns></returns>
+        Task DesactivarActivarCategoriaAsync(int codigo, bool activar);
     }
 }

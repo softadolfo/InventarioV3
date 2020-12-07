@@ -4,14 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Inventario.Core.Dto;
-using Inventario.Core.Dto.Marca.Filtro;
-using Inventario.Core.Dto.Marca.Input;
-using Inventario.Core.Dto.Marca.Output;
-using Inventario.Core.Dto.Producto.Output;
+using Inventario.Core.Dto.Categoria.Filtro;
+using Inventario.Core.Dto.Categoria.Input;
+using Inventario.Core.Dto.Categoria.Output;
 using Inventario.Core.Service;
 using Inventario.WEB.Helpers;
 using Inventario.WEB.Models;
-using Inventario.WEB.Models.Marca;
+using Inventario.WEB.Models.Categoria;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -19,85 +18,79 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Inventario.WEB.Controllers
 {
     [Authorize]
-    public class MarcaController : Controller
+    public class CategoriaController : Controller
     {
-        private readonly IMapper _mapper;
-        private readonly IMarcaService _marcaService;
-        private readonly IProductoService _productoService;
         private readonly int _cantXPage;
-        public MarcaController(IMapper mapper, IMarcaService marcaService, IProductoService productoService)
+        private readonly ICategoriaService _categoriaService;
+        private readonly IMapper _mapper;
+        public CategoriaController(ICategoriaService categoriaService, IMapper mapper)
         {
-            _marcaService = marcaService;
-            _productoService = productoService;
-            _mapper = mapper;
             _cantXPage = 10;
+            _categoriaService = categoriaService;
+            _mapper = mapper;
         }
-
         [HttpGet]
-        public async Task<IActionResult> Index(ListaMarcaVm model)
+        public async Task<IActionResult> Index(ListaCategoriaVm model)
         {
-            FiltroMarcaDto filtro = new FiltroMarcaDto();
+            FiltroCategoriaDto filtro = new FiltroCategoriaDto();
             filtro.Nombre = model.Nombre;
             if (model.Estado == null)
                 filtro.Estado = Core.Enums.Estado.Activo;
             else
                 filtro.Estado = model.Estado;
-            DataEntityPager<MarcaOutput> result = await _marcaService.GetMarcasAsync(filtro, _cantXPage, model.Page);
+            DataEntityPager<CategoriaOutput> result = await _categoriaService.GetCategoriasAsync(filtro, _cantXPage, model.Page);
             model.PagingInfo = new PagingInfo()
             {
                 CurrentPage = model.Page,
                 ItemsPerPage = _cantXPage,
                 TotalItems = result.CantidadTotal
             };
-            model.Marcas = result.Results;
+            model.Categorias = result.Results;
             return View(model);
         }
 
         [HttpGet]
-        public async Task<JsonResult> DetalleMarca(int codigo)
+        public async Task<JsonResult> DetalleCategoria(int codigo)
         {
-            MarcaOutput marca = await _marcaService.GetMarcaById(codigo);
-            string titulo = (codigo == 0) ? "Agregar Nueva Marca" : "Modificar Marca";
-            marca = marca == null ? new MarcaOutput() : marca;
-            MarcaVm resultado = _mapper.Map<MarcaVm>(marca);
-            string htmlViewForm = await this.RenderViewAsync("_FormMarca", resultado);
+            CategoriaOutput categoria = await _categoriaService.GetCategoriaById(codigo);
+            string titulo = (codigo == 0) ? "Agregar Nueva Categoria" : "Modificar Categoria";
+            categoria = categoria == null ? new CategoriaOutput() : categoria;
+            CategoriaVm resultado = _mapper.Map<CategoriaVm>(categoria);
+            string htmlViewForm = await this.RenderViewAsync("_FormCategoria", resultado);
             return Json(new { htmlViewParial = htmlViewForm, titulo = titulo });
         }
-
         [HttpPost]
-        public async Task<JsonResult> AgregarEditarMarca(MarcaVm marcaVm)
+        public async Task<JsonResult> AgregarEditarCategoria(CategoriaVm categoriaVm)
         {
-            string mensaje = (marcaVm.Codigo == 0) ? "Seccion Insertada Con exito" : "Seccion Modificada con exito";
+            string mensaje = (categoriaVm.IdCategoria == 0) ? "Categoria Insertada Con exito" : "Categoria Modificada con exito";
             if (!ModelState.IsValid)
             {
                 List<string> validationErrors = GetErrorListFromModelState(ModelState);
                 return Json(new { success = false, validationErrors });
             }
-            MarcaInput marcaInput = _mapper.Map<MarcaInput>(marcaVm);
-            await _marcaService.AgregarEditarMarcaAsync(marcaInput);
+            CategoriaInput categoriaInput = _mapper.Map<CategoriaInput>(categoriaVm);
+            await _categoriaService.AgregarEditarCategiriasAsync(categoriaInput);
             string htmlViewTable = await GetParcialView();
             return Json(new { success = true, viewPartial = htmlViewTable, mensaje = mensaje });
-
         }
         [HttpPost]
-        public async Task<JsonResult> EliminarMarca(int codigo)
+        public async Task<JsonResult> EliminarCategoria(int codigo)
         {
-            await _marcaService.EliminarMarcaAsync(codigo);
-            string mensaje = "La marca se elimino exitosamente.";
+            await _categoriaService.EliminarCategoriaAsync(codigo);
+            string mensaje = "La categoria se elimino exitosamente.";
             bool isValid = true;
             string htmlViewTable = await GetParcialView();
             return Json(new { success = isValid, mensaje = mensaje, viewParcial = htmlViewTable });
         }
-
         [HttpPost]
-        public async Task<JsonResult> DesactivarMarca(int codigo, bool activo)
+        public async Task<JsonResult> DesactivarCategoria(int codigo, bool activo)
         {
-            await _marcaService.DesactivarActivarMarcaAsync(codigo, activo);
+            await _categoriaService.DesactivarActivarCategoriaAsync(codigo, activo);
             string mensaje = "";
             if (activo == true)
-                mensaje = "La seccion se activo exitosamente.";
+                mensaje = "La categoria se activo exitosamente.";
             else
-                mensaje = "La seccion se desactivo exitosamente";
+                mensaje = "La categoria se desactivo exitosamente";
 
             string htmlViewTable = await GetParcialView();
             return Json(new { mensaje = mensaje, viewParcial = htmlViewTable });
@@ -110,19 +103,19 @@ namespace Inventario.WEB.Controllers
         /// <returns></returns>
         private async Task<string> GetParcialView()
         {
-            ListaMarcaVm model = new ListaMarcaVm();
+            ListaCategoriaVm model = new ListaCategoriaVm();
             //obtenemos la lista de las secciones ingresadas
-            FiltroMarcaDto filtro = new FiltroMarcaDto();
+            FiltroCategoriaDto filtro = new FiltroCategoriaDto();
             filtro.Estado = Core.Enums.Estado.Activo;
-            DataEntityPager<MarcaOutput> result = await _marcaService.GetMarcasAsync(filtro, _cantXPage, model.Page);
+            DataEntityPager<CategoriaOutput> result = await _categoriaService.GetCategoriasAsync(filtro, _cantXPage, model.Page);
             model.PagingInfo = new PagingInfo()
             {
                 CurrentPage = model.Page,
                 ItemsPerPage = _cantXPage,
                 TotalItems = result.CantidadTotal
             };
-            model.Marcas = result.Results;
-            string htmlViewTable = await this.RenderViewAsync("_TablaMarca", model);
+            model.Categorias = result.Results;
+            string htmlViewTable = await this.RenderViewAsync("_TablaCategoria", model);
             return htmlViewTable;
         }
         /// <summary>

@@ -7,33 +7,33 @@ using System.Threading.Tasks;
 
 namespace Inventario.Core.Repository
 {
-    public interface IRegistroVentaRepository
+    public interface IVentaProductoRepository
     {
         /// <summary>
-        /// Guarda o edita las RegistroVenta insertadas
+        /// Guarda o edita las VentaProducto insertadas
         /// </summary>
-        /// <param name="categoria"
-        Task AgregarEditarRegistroVentaAsync(RegistroVenta registroVenta);
+        /// <param name="ventaProducto"
+        Task AgregarEditarCategiriasAsync(VentaProducto ventaProducto);
         /// <summary>
-        /// Regresa una lista de RegistroVenta paginada
+        /// Regresa una lista de VentaProducto paginada
         /// </summary>
         /// <param name="itemperpage"></param>
         /// <param name="page"></param>
         /// <param name="where"></param>
-        Task<List<RegistroVenta>> GetRegistroVentaAsync(Expression<Func<RegistroVenta, bool>> where, int itemperpage, int page);
+        Task<List<VentaProducto>> GetCategoriasAsync(Expression<Func<VentaProducto, bool>> where, int itemperpage, int page);
         /// <summary>
         /// Regresa el total de resultados de la lista a paginar
         /// </summary>
         /// <param name="where"></param>
-        Task<int> CountAsync(Expression<Func<RegistroVenta, bool>> where);
+        Task<int> CountAsync(Expression<Func<VentaProducto, bool>> where);
         /// <summary>
-        /// Elimina las RegistroVenta
+        /// Elimina las VentaProducto
         /// </summary>
-        Task EliminarRegistroVentaAsync(int idVenta);
+        Task EliminarCategoriaAsync(int idVenta);
         /// <summary>
-        /// Extrae una RegistroVenta por id
+        /// Extrae una VentaProducto por id
         /// </summary>
-        Task<RegistroVenta> GetRegistroVentaById(int idVenta, bool trackear = false);
+        Task<VentaProducto> GetCategoriaById(int idVenta, bool trackear = false);
         /// <summary>
         /// Guarda los cambios realizados a la base de datos
         /// </summary>

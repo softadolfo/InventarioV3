@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Registro";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="ibox-content">
+
+        <div class="logo-login">
+            <img src="~/img/logo.jpg" />
+        </div>
+
+        <h3>Admin Inventario V1</h3>
+        <br />
+        <form asp-controller="Cuenta" asp-action="Registro">
+            <button class="btn btn-primary">Crear usuario admin</button>
+        </form>
+
+        <p class="m-t">
+            <small>&copy; 2020 AdminV1</small>
+        </p>
+    </div>
+</div>
+

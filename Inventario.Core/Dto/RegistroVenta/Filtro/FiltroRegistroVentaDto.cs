@@ -7,7 +7,7 @@ namespace Inventario.Core.Dto.RegistroVenta.Filtro
     public class FiltroRegistroVentaDto
     {
         public FiltroRegistroVentaDto(){}
-        public string Fecha { get; set; }
+        public DateTimeOffset Fecha { get; set; }
         public string NombreUsuario { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace Inventario.Core.Dto.RegistroVenta.Input
         public int? Codigo { get; set; }
         public DateTimeOffset? FechaVenta { get; set; }
         public decimal TotalVenta { get; set; }
-        public int IdUsuario { get; set; }
+        public string IdUsuario { get; set; }
     }
 }

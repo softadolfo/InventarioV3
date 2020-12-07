@@ -22,7 +22,7 @@ namespace Inventario.Core.Service
         /// <param name="itemperpage"></param>
         /// <param name="page"></param>
         /// <param name="filtro"></param7
-        Task<DataEntityPager<ProductoInput>> GetProductosAsync(FiltroProductoDto filtro, int itemperpage, int page);
+        Task<DataEntityPager<ProductoOutput>> GetProductosAsync(FiltroProductoDto filtro, int itemperpage, int page);
         /// <summary>
         /// Elimina las producto
         /// </summary>

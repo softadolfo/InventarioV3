@@ -1,0 +1,40 @@
+﻿@model Inventario.WEB.Models.Cuenta.LoginVm
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="ibox-content">
+
+        <div class="logo-login">
+            <img src="~/img/logo.jpg" />
+        </div>
+
+        <h3>Admin Inventario V1</h3>
+
+        <form asp-controller="Cuenta" asp-action="Login">
+
+            <div asp-validation-summary="All"></div>
+
+            <div class="m-t" role="form">
+                <div class="form-group">
+                    <input asp-for="Usuario" class="form-control" placeholder="Username" />
+                </div>
+                <div class="form-group">
+                    <input asp-for="Contrasena" class="form-control" placeholder="Password" />
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">INGRESAR</button>
+
+                <a asp-controller="RecuperarContrasena" asp-action="SolicitarContrasena"><small>Olvidé mi contraseña</small></a>
+            </div>
+
+            <input type="hidden" asp-for="PersistirCookie" value="true" />
+        </form>
+
+        <p class="m-t">
+            <small>&copy; 2020 AdminV1</small>
+        </p>
+    </div>
+</div>
+

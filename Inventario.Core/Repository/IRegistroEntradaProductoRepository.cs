@@ -7,33 +7,33 @@ using System.Threading.Tasks;
 
 namespace Inventario.Core.Repository
 {
-    public interface IRegistroVentaRepository
+    public interface IRegistroEntradaProductoRepository
     {
         /// <summary>
-        /// Guarda o edita las RegistroVenta insertadas
+        /// Guarda o edita las RegistroEntradaProducto insertadas
         /// </summary>
         /// <param name="categoria"
-        Task AgregarEditarRegistroVentaAsync(RegistroVenta registroVenta);
+        Task AgregarEditarRegistroEntradaProductoAsync(RegistroEntradaProducto registroEntradaProducto);
         /// <summary>
-        /// Regresa una lista de RegistroVenta paginada
+        /// Regresa una lista de RegistroEntradaProducto paginada
         /// </summary>
         /// <param name="itemperpage"></param>
         /// <param name="page"></param>
         /// <param name="where"></param>
-        Task<List<RegistroVenta>> GetRegistroVentaAsync(Expression<Func<RegistroVenta, bool>> where, int itemperpage, int page);
+        Task<List<RegistroEntradaProducto>> GetRegistroEntradaProductoAsync(Expression<Func<RegistroEntradaProducto, bool>> where, int itemperpage, int page);
         /// <summary>
         /// Regresa el total de resultados de la lista a paginar
         /// </summary>
         /// <param name="where"></param>
-        Task<int> CountAsync(Expression<Func<RegistroVenta, bool>> where);
+        Task<int> CountAsync(Expression<Func<RegistroEntradaProducto, bool>> where);
         /// <summary>
-        /// Elimina las RegistroVenta
+        /// Elimina las RegistroEntradaProducto
         /// </summary>
-        Task EliminarRegistroVentaAsync(int idVenta);
+        Task EliminarRegistroEntradaProductoAsync(int idRegistro);
         /// <summary>
-        /// Extrae una RegistroVenta por id
+        /// Extrae una RegistroEntradaProducto por id
         /// </summary>
-        Task<RegistroVenta> GetRegistroVentaById(int idVenta, bool trackear = false);
+        Task<RegistroEntradaProducto> GetRegistroEntradaProductoById(int idRegistro, bool trackear = false);
         /// <summary>
         /// Guarda los cambios realizados a la base de datos
         /// </summary>

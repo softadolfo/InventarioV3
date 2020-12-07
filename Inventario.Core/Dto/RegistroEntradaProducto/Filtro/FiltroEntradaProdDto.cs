@@ -7,7 +7,7 @@ namespace Inventario.Core.Dto.RegistroEntradaProducto.Filtro
     public class FiltroEntradaProdDto
     {
         public FiltroEntradaProdDto(){}
-        public string Fecha { get; set; }
+        public DateTimeOffset Fecha { get; set; }
         public string NombreProducto { get; set; }
     }
 }

@@ -39,6 +39,13 @@ namespace Inventario.Service
             await _categoriaRepository.SaveChangesAsync();
         }
 
+        public async Task DesactivarActivarCategoriaAsync(int codigo, bool activar)
+        {
+            Categoria categoria = await _categoriaRepository.GetCategoriaById(codigo, trackear: true);
+            categoria.Activo = activar;
+            await _categoriaRepository.SaveChangesAsync();
+        }
+
         public async Task EliminarCategoriaAsync(int idCategoria)
         {
             await _categoriaRepository.EliminarCategoriaAsync(idCategoria);
@@ -56,7 +63,8 @@ namespace Inventario.Service
         {
             //verificamos los parametros del filtro para poder verificar si vienen vacios
             bool isNullNombre = string.IsNullOrEmpty(filtro.Nombre);
-            Expression<Func<Categoria, bool>> where = x => ((isNullNombre) || (x.NombreCategoria.Contains(filtro.Nombre)));
+            Expression<Func<Categoria, bool>> where = x => ((isNullNombre) || (x.NombreCategoria.Contains(filtro.Nombre)) && ((filtro.Estado == Core.Enums.Estado.Activo && x.Activo == true)
+            || (filtro.Estado == Core.Enums.Estado.Inactivo && x.Activo == false) || (filtro.Estado == Core.Enums.Estado.Todos)));
 
             List<Categoria> categorias = await _categoriaRepository.GetCategoriasAsync(where, itemperpage, page);
             List<CategoriaOutput> result = _mapper.Map<List<CategoriaOutput>>(categorias);
